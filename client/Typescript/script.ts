@@ -412,7 +412,7 @@ async function deposit() {
 
 function Logout() {
   displayNone();
-  temporaryCart.length = 0; 
+  temporaryCart.length = 0;
   (document.getElementById("menu") as HTMLDivElement).style.display = "none";
   (document.getElementById("box") as HTMLDivElement).style.display = "block";
 }
@@ -741,24 +741,82 @@ async function orderHistory() {
   });
 }
 
+// async function displayOrderItems(orderID: number) {
+//   displayNone();
+
+//   orderItems.style.display = "block";
+
+//   let orderTable = document.getElementById("tb4") as HTMLTableElement;
+
+//   if (orderTable) {
+//     orderTable.innerHTML = `<tr>
+//       <th>Food Name</th>
+//       <th>Order Price</th>
+//       <th>Order Quantity</th>
+//       <th>Actions</th>
+//     </tr>`;
+//   }
+
+//   const foodList: FoodDetails[] = await fetchFoods();
+//   const orderList: OrderDetails[] = await fetchOrders();
+//   const currentUserOrders = orderList.filter(
+//     (order) => order.userID === currentUser.userID
+//   );
+
+//   if (!currentUserOrders.length) {
+//     alert("No orders found for the current user.");
+//     return;
+//   }
+
+//   for (const order of currentUserOrders) {
+//     const cartItems = await fetchCartItems(orderID);
+//     const itemsArray = Array.isArray(cartItems) ? cartItems : [cartItems];
+
+//     for (const item of itemsArray) {
+//       const food = foodList.find((food) => food.foodID === item.foodID);
+//       const row = document.createElement("tr");
+
+//       alert("displaying items");
+
+//       const modifyButton =
+//         order.orderStatus === "Ordered"
+//           ? `<button onclick="modifyCartItems(${item.itemID}, ${order.orderID})"
+//                   style="background-color: blue; color: white;">Modify</button>`
+//           : "";
+
+//       row.innerHTML = `
+//           <td>${food!.foodName}</td>
+//           <td>${item.orderPrice}</td>
+//           <td>${item.orderQuantity}</td>
+//           <td>${modifyButton}</td>
+//         `;
+//       orderTable?.appendChild(row);
+//     }
+//   }
+// }
+
 async function displayOrderItems(orderID: number) {
   displayNone();
-
   orderItems.style.display = "block";
 
-  let orderTable = document.getElementById("tb4") as HTMLTableElement;
-
+  const orderTable = document.getElementById("tb4") as HTMLTableElement;
   if (orderTable) {
-    orderTable.innerHTML = `<tr>
+    orderTable.innerHTML = "";
+    const headerRow = document.createElement("tr");
+    headerRow.innerHTML = `
       <th>Food Name</th>
       <th>Order Price</th>
       <th>Order Quantity</th>
       <th>Actions</th>
-    </tr>`;
+    `;
+    orderTable.appendChild(headerRow);
   }
 
-  const foodList: FoodDetails[] = await fetchFoods();
-  const orderList: OrderDetails[] = await fetchOrders();
+  const [foodList, orderList] = await Promise.all([
+    fetchFoods(),
+    fetchOrders(),
+  ]);
+
   const currentUserOrders = orderList.filter(
     (order) => order.userID === currentUser.userID
   );
@@ -768,29 +826,39 @@ async function displayOrderItems(orderID: number) {
     return;
   }
 
-  for (const order of currentUserOrders) {
-    const cartItems = await fetchCartItems(orderID);
-    const itemsArray = Array.isArray(cartItems) ? cartItems : [cartItems];
+  const cartItems = await fetchCartItems(orderID);
+  const itemsArray = Array.isArray(cartItems) ? cartItems : [cartItems];
 
-    for (const item of itemsArray) {
-      const food = foodList.find((food) => food.foodID === item.foodID);
-      const row = document.createElement("tr");
+  //use a set to avoid duplicating items
+  const displayedItemIDs = new Set<number>();
 
-      const modifyButton =
-        order.orderStatus === "Ordered"
-          ? `<button onclick="modifyCartItems(${item.itemID}, ${order.orderID})" 
-                  style="background-color: blue; color: white;">Modify</button>`
-          : "";
+  itemsArray.forEach((item) => {
+    if (displayedItemIDs.has(item.itemID)) return;
 
-      row.innerHTML = `
-          <td>${food!.foodName}</td>
-          <td>${item.orderPrice}</td>
-          <td>${item.orderQuantity}</td>
-          <td>${modifyButton}</td>
-        `;
-      orderTable?.appendChild(row);
+    displayedItemIDs.add(item.itemID);
+
+    const food = foodList.find((food) => food.foodID === item.foodID);
+    if (!food) {
+      console.error(`Food item not found for foodID: ${item.foodID}`);
+      return;
     }
-  }
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td>${food.foodName}</td>
+        <td>${item.orderPrice}</td>
+        <td>${item.orderQuantity}</td>
+        <td>
+          ${
+            currentUserOrders.some((order) => order.orderStatus === "Ordered")
+              ? `<button onclick="modifyCartItems(${item.itemID}, ${orderID})" 
+                    style="background-color: blue; color: white;">Modify</button>`
+              : ""
+          }
+        </td>
+      `;
+    orderTable?.appendChild(row);
+  });
 }
 
 async function modifyCartItems(itemID: number, orderID: number) {

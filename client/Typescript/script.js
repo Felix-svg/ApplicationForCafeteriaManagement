@@ -643,45 +643,102 @@ function orderHistory() {
         });
     });
 }
+// async function displayOrderItems(orderID: number) {
+//   displayNone();
+//   orderItems.style.display = "block";
+//   let orderTable = document.getElementById("tb4") as HTMLTableElement;
+//   if (orderTable) {
+//     orderTable.innerHTML = `<tr>
+//       <th>Food Name</th>
+//       <th>Order Price</th>
+//       <th>Order Quantity</th>
+//       <th>Actions</th>
+//     </tr>`;
+//   }
+//   const foodList: FoodDetails[] = await fetchFoods();
+//   const orderList: OrderDetails[] = await fetchOrders();
+//   const currentUserOrders = orderList.filter(
+//     (order) => order.userID === currentUser.userID
+//   );
+//   if (!currentUserOrders.length) {
+//     alert("No orders found for the current user.");
+//     return;
+//   }
+//   for (const order of currentUserOrders) {
+//     const cartItems = await fetchCartItems(orderID);
+//     const itemsArray = Array.isArray(cartItems) ? cartItems : [cartItems];
+//     for (const item of itemsArray) {
+//       const food = foodList.find((food) => food.foodID === item.foodID);
+//       const row = document.createElement("tr");
+//       alert("displaying items");
+//       const modifyButton =
+//         order.orderStatus === "Ordered"
+//           ? `<button onclick="modifyCartItems(${item.itemID}, ${order.orderID})"
+//                   style="background-color: blue; color: white;">Modify</button>`
+//           : "";
+//       row.innerHTML = `
+//           <td>${food!.foodName}</td>
+//           <td>${item.orderPrice}</td>
+//           <td>${item.orderQuantity}</td>
+//           <td>${modifyButton}</td>
+//         `;
+//       orderTable?.appendChild(row);
+//     }
+//   }
+// }
 function displayOrderItems(orderID) {
     return __awaiter(this, void 0, void 0, function* () {
+        // Hide other views and show the order items section
         displayNone();
         orderItems.style.display = "block";
-        let orderTable = document.getElementById("tb4");
+        // Get the table and reset its content
+        const orderTable = document.getElementById("tb4");
         if (orderTable) {
-            orderTable.innerHTML = `<tr>
+            orderTable.innerHTML = ""; // Clear existing rows
+            const headerRow = document.createElement("tr");
+            headerRow.innerHTML = `
       <th>Food Name</th>
       <th>Order Price</th>
       <th>Order Quantity</th>
       <th>Actions</th>
-    </tr>`;
+    `;
+            orderTable.appendChild(headerRow);
         }
-        const foodList = yield fetchFoods();
-        const orderList = yield fetchOrders();
+        const [foodList, orderList] = yield Promise.all([
+            fetchFoods(),
+            fetchOrders(),
+        ]);
         const currentUserOrders = orderList.filter((order) => order.userID === currentUser.userID);
         if (!currentUserOrders.length) {
             alert("No orders found for the current user.");
             return;
         }
-        for (const order of currentUserOrders) {
-            const cartItems = yield fetchCartItems(orderID);
-            const itemsArray = Array.isArray(cartItems) ? cartItems : [cartItems];
-            for (const item of itemsArray) {
-                const food = foodList.find((food) => food.foodID === item.foodID);
-                const row = document.createElement("tr");
-                const modifyButton = order.orderStatus === "Ordered"
-                    ? `<button onclick="modifyCartItems(${item.itemID}, ${order.orderID})" 
-                  style="background-color: blue; color: white;">Modify</button>`
-                    : "";
-                row.innerHTML = `
-          <td>${food.foodName}</td>
-          <td>${item.orderPrice}</td>
-          <td>${item.orderQuantity}</td>
-          <td>${modifyButton}</td>
-        `;
-                orderTable === null || orderTable === void 0 ? void 0 : orderTable.appendChild(row);
+        const cartItems = yield fetchCartItems(orderID);
+        const itemsArray = Array.isArray(cartItems) ? cartItems : [cartItems];
+        const displayedItemIDs = new Set();
+        itemsArray.forEach((item) => {
+            if (displayedItemIDs.has(item.itemID))
+                return;
+            displayedItemIDs.add(item.itemID);
+            const food = foodList.find((food) => food.foodID === item.foodID);
+            if (!food) {
+                console.error(`Food item not found for foodID: ${item.foodID}`);
+                return;
             }
-        }
+            const row = document.createElement("tr");
+            row.innerHTML = `
+        <td>${food.foodName}</td>
+        <td>${item.orderPrice}</td>
+        <td>${item.orderQuantity}</td>
+        <td>
+          ${currentUserOrders.some((order) => order.orderStatus === "Ordered")
+                ? `<button onclick="modifyCartItems(${item.itemID}, ${orderID})" 
+                    style="background-color: blue; color: white;">Modify</button>`
+                : ""}
+        </td>
+      `;
+            orderTable === null || orderTable === void 0 ? void 0 : orderTable.appendChild(row);
+        });
     });
 }
 function modifyCartItems(itemID, orderID) {
