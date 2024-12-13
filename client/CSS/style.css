@@ -1,0 +1,352 @@
+@import url("https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  font-family: "Roboto", serif;
+}
+
+.sign {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: aliceblue;
+}
+
+.sign h1:nth-child(1) {
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.sign h1:nth-child(2) {
+  background-color: orange;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+#box {
+  width: 50%;
+  margin: 20vh auto;
+}
+
+#menu {
+  display: none;
+}
+
+#menu ol {
+  display: flex;
+  list-style-type: none;
+  width: 80%;
+  margin: auto;
+  justify-content: space-evenly;
+  text-transform: uppercase;
+  color: white;
+  background-color: black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#menu ol li {
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#menu ol li:hover {
+  background-color: lightskyblue;
+  color: black;
+}
+
+#signup {
+  padding: 20px;
+  border-radius: 20px;
+  width: 60%;
+  margin: auto;
+}
+
+#signin {
+  padding: 20px;
+  border-radius: 20px;
+  width: 60%;
+  margin: auto;
+  display: none;
+}
+
+#signup input,
+#signin input {
+  width: 100%;
+  margin: 2% auto;
+  line-height: 2rem;
+  font-size: 1.2rem;
+  text-indent: 3%;
+  border-radius: 10px;
+  border: 1px solid gray;
+}
+
+.sub {
+  width: 100%;
+  margin: 2% auto;
+  line-height: 2rem;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  background-color: orange;
+  color: white;
+  cursor: pointer;
+}
+
+#welcome,
+#balance,
+#curBalance,
+.wel1 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+#top input {
+  width: 40%;
+  margin: 2% auto;
+  line-height: 4rem;
+  font-size: 2rem;
+  text-indent: 3%;
+  border-radius: 10px;
+  border: 2px solid blue;
+  box-shadow: 2px 2px 2px gray;
+  display: block;
+}
+
+#top button {
+  display: block;
+  margin: auto;
+  line-height: 2rem;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  background-color: green;
+  color: white;
+  border: 2px solid green;
+  box-shadow: 2px 2px 2px gray;
+}
+
+#top {
+  display: none;
+}
+
+.medButton {
+  display: block;
+  width: 10%;
+  border: none;
+  padding: 5px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  color: white;
+  margin: 5vh auto;
+  background-color: green;
+}
+
+#stock,
+#purchase,
+#history,
+#cart,
+#order-items {
+  margin-top: 10vh;
+  margin-bottom: 5vh;
+  display: none;
+}
+
+#tb1,
+#tb3,
+#tb2,
+#tb4 {
+  width: 70%;
+  margin: auto;
+  border: 2px solid gray;
+  border-collapse: collapse;
+}
+
+#tb {
+  width: 90%;
+  margin: auto;
+  border: 2px solid gray;
+  border-collapse: collapse;
+}
+
+#tb td,
+#tb th {
+  text-align: center;
+  border: 2px solid gray;
+  padding: 7px;
+}
+
+#tb td img {
+  border-radius: 10%;
+  width: 30vh;
+  height: 20vh;
+}
+
+#tb td,
+#tb th,
+#tb1 td,
+#tb1 th,
+#tb3 td,
+#tb3 th,
+#tb2 td,
+#tb2 th,
+#tb4 th,
+#tb4 td {
+  text-align: center;
+  border: 2px solid gray;
+  padding: 5px;
+}
+
+#tb td button,
+#tb1 td button,
+#tb2 td button,
+#tb4 td button {
+  border: none;
+  padding: 5px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  color: white;
+  margin: 0px 5px;
+}
+
+#tb2 td button {
+  background-color: red;
+}
+
+#tb td button:nth-child(1) {
+  background-color: blue;
+}
+
+#tb1 td button {
+  background-color: green;
+}
+
+#tb3 td button {
+  border: none;
+  padding: 5px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  color: white;
+  margin: 0px 5px;
+  background-color: red;
+}
+
+#tb td button:nth-child(2) {
+  background-color: red;
+}
+
+#form1 {
+  margin-top: 5vh;
+  display: none;
+  width: 40%;
+  margin: auto;
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#form1 input {
+  width: 50%;
+  margin: 2% auto;
+  line-height: 2rem;
+  font-size: 1.5rem;
+  text-indent: 3%;
+  border-radius: 10px;
+  border: 2px solid blue;
+  box-shadow: 2px 2px 2px gray;
+  display: block;
+}
+
+#form1 h1 {
+  text-align: center;
+}
+
+#form1 button {
+  display: block;
+  width: 50%;
+  border: none;
+  padding: 5px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  color: white;
+  margin: auto;
+  background-color: green;
+}
+
+.wel1 img {
+  border-radius: 50%;
+  width: 30vh;
+  height: 30vh;
+}
+
+#product-cont {
+  box-sizing: border-box;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.product-card {
+  flex: 0 0 calc(40% - 18px);
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  text-align: center;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.product-info h5 {
+  font-size: 1rem;
+  margin: 8px 0;
+  color: #555;
+}
+
+.product-info h5:nth-child(2) {
+  font-weight: bold;
+  color: #333;
+}
+
+.product-card button {
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.product-card button:hover {
+  background-color: rgb(0, 100, 255);
+}
+
+.product-card button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#tab button {
+  align-self: center;
+  border: none;
+  padding: 5px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  color: white;
+  background-color: green;
+}
+
+.cancelled {
+  align-self: center;
+  border: none;
+  padding: 5px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  color: white;
+  background-color: green;
+}

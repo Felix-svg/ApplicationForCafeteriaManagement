@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafeteria Manager</title>
+    <link rel="stylesheet" href="/client/CSS/style.css">
+</head>
+
+<body>
+    <div id="box">
+        <div class="sign">
+            <h1 onclick="signIn()" id="si">Sign In</h1>
+            <h1 onclick="signUp()" id="su">Sign Up</h1>
+        </div>
+        <div id="signup">
+            <form action="" onsubmit="signUpSubmit(event)">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="text" id="phone" placeholder="Mobile Number" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" id="cpassword" placeholder="Confirm Password" required>
+                <input type="file" id="fileElement" required>
+                <input type="submit" value="Submit" class="sub">
+            </form>
+        </div>
+        <div id="signin">
+            <form action="" onsubmit="signInSubmit(event)">
+                <input type="email" id="email1" placeholder="Email">
+                <input type="password" id="password2" placeholder="Password">
+                <input type="submit" value="Submit" class="sub">
+            </form>
+        </div>
+    </div>
+    <div id="menu">
+        <ol>
+            <li onclick="home()">Home</li>
+            <li onclick="foods()">Foods</li>
+            <li onclick="purchase()">Purchase</li>
+            <li onclick="cart()">Cart</li>
+            <li onclick="orderHistory()">Order History</li>
+            <li onclick="recharge()">Recharge </li>
+            <li onclick="show()">Show Balance</li>
+            <li onclick="Logout()">Log Out</li>
+        </ol>
+    </div>
+    <div id="home">
+        <h1 class="wel1"><img id="imgTag"></h1>
+        <h1 id="welcome"></h1>
+    </div>
+    <div id="stock">
+        <button onclick="addFood()" class="medButton">Add Food</button>
+        <table id="tb">
+
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price per Quantity</th>
+                    <th>Available Quantity</th>
+                    <th>Photo</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tbody1">
+
+            </tbody>
+
+        </table>
+    </div>
+    <div id="purchase">
+        <div id="product-cont">
+        </div>
+    </div>
+    <div id="cart">
+        <table id="tb2">
+            <tr>
+                <thead>
+                    <th>Food Name</th>
+                    <th>Count</th>
+                    <th>Price</th>
+                    <th>Remove</th>
+                </thead>
+                <tbody id="tbody3">
+
+                </tbody>
+            </tr>
+        </table>
+        <button onclick="buy()" class="medButton">Buy</button>
+    </div>
+    <div id="history">
+        <table id="tb3">
+            <thead>
+                <tr>
+                    <th>Total Price</th>
+                    <th>Order Date</th>
+                    <th>Order Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div id="order-items">
+        <table id="tb4">
+           
+        </table>
+    </div>
+
+    <div id="top">
+        <h5 id="curBalance"></h5>
+        <input type="number" placeholder="Enter the Amount " id="amount" required>
+        <button onclick="deposit()">Deposit</button>
+    </div>
+    <div id="show">
+        <h5 id="balance"></h5>
+    </div>
+
+    <div id="form1">
+        <h1>Food Details</h1>
+        <input type="text" id="foodName" placeholder="Food Name" />
+        <input type="number" id="foodPrice" placeholder="Food Price" />
+        <input type="number" id="foodCount" placeholder="Food Quantity" />
+        <input type="file" id="itemImage" />
+        <button onclick="addProductTo()">submit</button>
+    </div>
+
+    <script type="text/javascript" src="/client/Typescript/script.js"></script>
+</body>
+
+</html>
